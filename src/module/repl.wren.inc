@@ -2,7 +2,7 @@
 static const char* replModuleSource =
 "import \"meta\" for Meta\n"
 "import \"io\" for Stdin, Stdout\n"
-"import \"os\" for Platform\n"
+"import \"os\" for Platform, Process\n"
 "\n"
 "class LineEditor {\n"
 "  construct new() {\n"
@@ -15,6 +15,7 @@ static const char* replModuleSource =
 "  isAtLineEnd { _cursor == _line.count }\n"
 "  cursor { _cursor }\n"
 "  cursor=(value) { _cursor = value }\n"
+"  content { _line.join() }\n"
 "  content=(value) { \n"
 "    clear()\n"
 "    append(value)\n"
@@ -40,8 +41,6 @@ static const char* replModuleSource =
 "\n"
 "    _line.swap(_cursor-1, _cursor-2)\n"
 "  }\n"
-"\n"
-"  content { _line.join() }\n"
 "\n"
 "  append(s) {\n"
 "    _line.addAll(s)\n"
@@ -113,7 +112,6 @@ static const char* replModuleSource =
 "\n"
 "  handleChar(codepoint) {\n"
 "    var byte = codepoint.bytes[0]\n"
-"    var codepoints\n"
 "    if (byte == Chars.ctrlC) {\n"
 "      System.print()\n"
 "      return true\n"
@@ -993,4 +991,5 @@ static const char* replModuleSource =
 "} else {\n"
 "  // ANSI escape sequences probably aren't supported, so degrade.\n"
 "  SimpleRepl.new().run()\n"
-"}\n";
+"}\n"
+"Process.exit(20)\n";
