@@ -14,4 +14,5 @@ static const char* osModuleSource =
 "  foreign static allArguments\n"
 "  foreign static version\n"
 "  foreign static cwd\n"
+"  foreign static exit(code)\n"
 "}\n";

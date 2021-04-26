@@ -1,6 +1,6 @@
 import "meta" for Meta
 import "io" for Stdin, Stdout
-import "os" for Platform
+import "os" for Platform, Process
 
 class LineEditor {
   construct new() {

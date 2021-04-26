@@ -1,6 +1,7 @@
 #include "os.h"
 #include "uv.h"
 #include "wren.h"
+#include "vm.h"
 
 #if __APPLE__
   #include "TargetConditionals.h"
@@ -75,6 +76,12 @@ void processAllArguments(WrenVM* vm)
 void processVersion(WrenVM* vm) {
   wrenEnsureSlots(vm, 1);
   wrenSetSlotString(vm, 0, WREN_VERSION_STRING);
+}
+
+void processExit(WrenVM* vm) {
+  int code = (int)wrenGetSlotDouble(vm, 1);
+  setExitCode(code);
+  uv_stop(getLoop());
 }
 
 void processCwd(WrenVM* vm)
